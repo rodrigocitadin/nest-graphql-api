@@ -1,0 +1,13 @@
+version: '2.0'
+
+services:
+  database:
+    container_name: nest_db
+    image: postgres:13
+    environment:
+      POSTGRES_DB: nest_graphql_api
+      POSTGRES_USER: dummy
+      POSTGRES_PASSWORD: dummy
+    ports:
+      - "5432:5432"
+
