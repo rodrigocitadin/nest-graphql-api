@@ -7,7 +7,7 @@ interface userData {
 }
 
 export default class TestUtils {
-  static giveUser(data?: userData): User {
+  static giveAnUser(data?: userData): User {
     const user = new User();
 
     user.id = data?.id.toString() || '1';

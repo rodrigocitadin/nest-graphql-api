@@ -6,6 +6,7 @@ import TestUtils from '../common/test/TestUtils';
 
 describe('UserService', () => {
   let service: UserService;
+  let validUser: User = TestUtils.giveAnUser();
 
   const mockRepository = {
     find: jest.fn(),
@@ -36,13 +37,23 @@ describe('UserService', () => {
 
   describe('findAllUsers', () => {
     it('should be list all users', async () => {
-      const user = TestUtils.giveUser();
-      mockRepository.find.mockReturnValue([user, user]);
+      mockRepository.find.mockReturnValue([validUser, validUser]);
 
       const users = await service.findAllUsers();
 
       expect(users).toHaveLength(2);
-      expect(mockRepository.find).toHaveReturnedTimes(1);
+      expect(mockRepository.find).toHaveBeenCalledTimes(1);
+    })
+  })
+
+  describe('findUserById', () => {
+    it('should be find an existing user', async () => {
+      mockRepository.findOne.mockReturnValue(validUser);
+
+      const userFound = await service.findUserById('1');
+
+      expect(userFound).toMatchObject(validUser);
+      expect(mockRepository.findOne).toHaveBeenCalledTimes(1);
     })
   })
 });
