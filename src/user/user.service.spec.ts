@@ -3,6 +3,7 @@ import { UserService } from './user.service';
 import { getRepositoryToken } from '@nestjs/typeorm';
 import { User } from './user.entity';
 import TestUtils from '../common/test/TestUtils';
+import { NotFoundException } from '@nestjs/common';
 
 describe('UserService', () => {
   let service: UserService;
@@ -54,6 +55,13 @@ describe('UserService', () => {
 
       expect(userFound).toMatchObject(validUser);
       expect(mockRepository.findOne).toHaveBeenCalledTimes(1);
+    })
+
+    it('should return an exception when does not find an user', () => {
+      mockRepository.findOne.mockReturnValue(null);
+
+      expect(service.findUserById('1')).rejects.toBeInstanceOf(NotFoundException);
+      expect(mockRepository.find).toHaveBeenCalledTimes(1);
     })
   })
 });
