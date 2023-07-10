@@ -73,4 +73,15 @@ describe('UserService', () => {
       expect(mockRepository.findOne).toHaveBeenCalledTimes(1);
     })
   })
+
+  describe('createUser', () => {
+    it('should create an user', async () => {
+      mockRepository.save.mockReturnValue(validUser);
+      mockRepository.create.mockReturnValue(validUser);
+
+      expect(await service.createUser(validUser)).toMatchObject(validUser);
+      expect(mockRepository.create).toBeCalledTimes(1);
+      expect(mockRepository.save).toBeCalledTimes(1);
+    })
+  })
 });
