@@ -115,4 +115,15 @@ describe('UserService', () => {
       expect(mockRepository.create).toBeCalledTimes(1);
     })
   })
+
+  describe('deleteUser', () => {
+    it('should delete an existing user', async () => {
+      mockRepository.findOne.mockReturnValue(validUser);
+      mockRepository.delete.mockReturnValue(validUser);
+
+      expect(await service.deleteUser('1')).toBe(true);
+      expect(mockRepository.findOne).toBeCalledTimes(1);
+      expect(mockRepository.delete).toBeCalledTimes(1);
+    })
+  })
 });
