@@ -1,5 +1,5 @@
 import { HideField, InputType } from '@nestjs/graphql';
-import { IsNotEmpty, IsOptional, IsString } from 'class-validator';
+import { IsNotEmpty, IsOptional, IsString, IsStrongPassword } from 'class-validator';
 
 @InputType()
 export class UpdateUserInput {
@@ -17,5 +17,6 @@ export class UpdateUserInput {
   @IsNotEmpty({ message: 'password field cannot be empty' })
   @IsOptional()
   @HideField()
+  @IsStrongPassword()
   password?: string;
 }
