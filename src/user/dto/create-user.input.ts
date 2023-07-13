@@ -1,4 +1,4 @@
-import { InputType } from '@nestjs/graphql';
+import { HideField, InputType } from '@nestjs/graphql';
 import { IsNotEmpty, IsString } from 'class-validator';
 
 @InputType()
@@ -10,4 +10,9 @@ export class CreateUserInput {
   @IsString()
   @IsNotEmpty({ message: 'email field cannot be empty' })
   email: string;
+
+  @IsString()
+  @IsNotEmpty({ message: 'password field cannot be empty' })
+  @HideField()
+  password: string;
 }
